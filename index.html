@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocio Prado: Descubre nuestra Cultura, Tradición y Belleza</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3a7e4f;
+            --secondary-color: #f0c869;
+            --accent-color: #ff5733;
+            --text-color: #333;
+            --background-color: #f9f9f9;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style-type: none;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+
+        main {
+            margin-top: 70px;
+        }
+
+        .hero {
+            background-image: url('/api/placeholder/1200/600');
+            background-size: cover;
+            background-position: center;
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            animation: slideDown 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        .hero p {
+            font-size: 1.7rem;
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            padding: 4rem 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .card-content {
+            display: none;
+            margin-top: 1rem;
+        }
+
+        .card .toggle-button {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.5rem;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .card .toggle-button:hover {
+            background-color: var(--primary-color);
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .image-gallery img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .image-gallery img:hover {
+            transform: scale(1.1);
+            filter: brightness(1.2);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            animation: bounce 2s infinite;
+        }
+
+        .cta-button:hover {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            transform: scale(1.05);
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 80%;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-close {
+            background: var(--accent-color);
+            border: none;
+            padding: 0.5rem;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-50px); }
+            to { transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#sobre">Sobre Grocio Prado</a></li>
+                <li><a href="#atracciones">Atracciones</a></li>
+                <li><a href="#cultura">Cultura</a></li>
+                <li><a href="#gastronomia">Gastronomía</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="inicio" class="hero">
+            <div class="hero-content">
+                <h1>Bienvenidos a Grocio Prado</h1>
+                <p>Descubre la magia de nuestra cultura, tradición y belleza</p>
+                <a href="#atracciones" class="cta-button">Explora Ahora</a>
+            </div>
+        </section>
+
+        <section id="sobre" class="section">
+            <div class="container">
+                <h2 class="section-title">Sobre Grocio Prado</h2>
+                <p>Grocio Prado, ubicado en la provincia de Chincha, departamento de Ica, es un tesoro escondido lleno de historia, tradiciones, cultura viva y belleza natural. Nuestra región ofrece experiencias únicas que mezclan el pasado con el presente, brindando a los visitantes una visión auténtica de la vida en Grocio Prado.</p>
+                <p>Ven y disfruta de festividades llenas de color, música, y alegría, mientras exploras paisajes que te dejarán sin aliento.</p>
+            </div>
+        </section>
+
+        <section id="atracciones" class="section">
+            <div class="container">
+                <h2 class="section-title">Principales Atracciones</h2>
+                <div class="grid">
+                    <div class="card">
+                        <i class="fas fa-church card-icon"></i>
+                        <h3>Parroquia San Pedro</h3>
+                        <p>Admira la arquitectura colonial y siente la paz en este importante centro religioso de Grocio Prado.</p>
+                        <button class="toggle-button">Más Información</button>
+                        <div class="card-content">
+                            <p>La Parroquia San Pedro es un símbolo de la fe y la historia de Grocio Prado. Cada rincón cuenta historias de la devoción de su gente y es el escenario de importantes celebraciones religiosas durante todo el año.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-home card-icon"></i>
+                        <h3>Casa de la Beatita</h3>
+                        <p>Visita la casa de Melchorita Saravia, una figura espiritual venerada en nuestra región.</p>
+                        <button class="toggle-button">Más Información</button>
+                        <div class="card-content">
+                            <p>La Casa de la Beatita es un lugar de peregrinación y reflexión. Melchora Saravia Tasayco, conocida como "La Melchorita", es una figura venerada por su vida piadosa y los numerosos milagros atribuidos a su intercesión.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-tree card-icon"></i>
+                        <h3>Plaza de Armas</h3>
+                        <p>Relájate y observa la vida cotidiana en el corazón de nuestro distrito.</p>
+                        <button class="toggle-button">Más Información</button>
+                        <div class="card-content">
+                            <p>La Plaza de Armas es el alma de la comunidad. Rodeada de frondosos árboles y una atmósfera tranquila, este es el lugar perfecto para disfrutar de eventos culturales, ferias y actividades al aire libre que celebran la vida y la tradición de Grocio Prado.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-mountain card-icon"></i>
+                        <h3>Cerro San Juan</h3>
+                        <p>Disfruta de una vista panorámica de todo el distrito desde este mirador natural.</p>
+                        <button class="toggle-button">Más Información</button>
+                        <div class="card-content">
+                            <p>El Cerro San Juan es un destino ideal para los amantes de la naturaleza y la aventura. Subir a su cima te recompensa con una vista impresionante de los campos, el pueblo y la vastedad del horizonte.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>        
+
+        <section id="cultura" class="section">
+            <div class="container">
+                <h2 class="section-title">Cultura y Tradiciones</h2>
+                <p>Grocio Prado es un lugar rico en tradiciones y celebraciones culturales. Entre las festividades más destacadas se encuentran:</p>
+                <ul>
+                    <li>Semana Santa: Una serie de celebraciones religiosas llenas de devoción, donde se realizan procesiones, representaciones y actos de fe que invitan a la reflexión y la unión comunitaria.</li>
+                    <li>Fiesta de San Pedro: Una colorida festividad que honra al patrón de los pescadores, con eventos que incluyen danzas típicas, música y la bendición de las aguas.</li>
+                </ul>
+                <div class="image-gallery">
+                    <img src="images/3.png" alt="Celebración de Semana Santa">
+                    <img src="images/3 (1).png" alt="Fiesta de San Pedro">
+                    <img src="images/32.jpeg" alt="Danza Tradicional">
+                    <img src="images/grocio pradro.png" alt="Paisajes Naturales">
+                </div>
+            </div>
+        </section>
+
+        <section id="gastronomia" class="section">
+            <div class="container">
+                <h2 class="section-title">Gastronomía</h2>
+                <p>Deléitate con nuestros platos típicos que reflejan la rica herencia culinaria de la región, preparados con ingredientes locales y recetas transmitidas de generación en generación:</p>
+                <div class="grid">
+                    <div class="card">
+                        <h3>Carapulcra Chinchana</h3>
+                        <p>Un delicioso guiso a base de papa seca y carne de cerdo.</p>
+                        <button class="toggle-button">Cómo Preparar</button>
+                        <div class="card-content">
+                            <p>1. **Remojar la papa seca:** Dejar en agua caliente por 30 minutos hasta que esté suave.<br>
+                               2. **Preparar el aderezo:** En una olla, dorar la cebolla, ajo y ají panca con un poco de aceite.<br>
+                               3. **Agregar la carne:** Incorpora trozos de cerdo previamente sazonados y fríe hasta dorar.<br>
+                               4. **Añadir papa seca y caldo:** Mezclar y cocinar a fuego lento por 1 hora.<br>
+                               5. **Incorporar maní y especias:** Agregar maní molido, comino y sal al gusto.<br>
+                               6. **Cocción final:** Dejar cocinar hasta que los sabores se integren por completo. Servir caliente con arroz.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>Arroz con Pato</h3>
+                        <p>Plato emblemático que combina arroz sazonado con tiernas presas de pato.</p>
+                        <button class="toggle-button">Cómo Preparar</button>
+                        <div class="card-content">
+                            <p>1. **Sazonar el pato:** Marinar el pato con sal, pimienta, comino y ajo durante al menos 1 hora.<br>
+                               2. **Sellar el pato:** En una olla grande, dorar las piezas de pato hasta que estén doradas por ambos lados.<br>
+                               3. **Preparar el aderezo:** En la misma olla, freír cebolla, ajo, ají amarillo y ají panca.<br>
+                               4. **Añadir cilantro y cerveza:** Licuar hojas de cilantro con cerveza negra y agregar a la olla.<br>
+                               5. **Incorporar el arroz:** Añadir arroz, caldo de pollo y dejar cocinar a fuego lento.<br>
+                               6. **Cocción final:** Cocinar hasta que el arroz esté tierno y el pato jugoso. Servir decorado con hojas de cilantro fresco.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="section">
+            <div class="container">
+                <h2 class="section-title">Contacto e Información</h2>
+                <p>Grocio Prado está ubicado a 210 km al sur de Lima, aproximadamente a 3 horas en auto por la Panamericana Sur. Ven y disfruta de un lugar donde la historia y la tradición se encuentran con la calidez de su gente.</p>
+                <p>Para más información:</p>
+                <ul>
+                    <li>Email: turismo@grocioprado.gob.pe</li>
+                    <li>Teléfono: (056) 123-4567</li>
+                </ul>
+                <a href="#" class="cta-button">Planea tu Visita</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Municipalidad de Grocio Prado. Todos los derechos reservados. Desarrollado por Freddy.</p>
+        </div>
+    </footer>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h3>Detalles del Lugar</h3>
+            <p id="modal-text"></p>
+            <button class="modal-close">Cerrar</button>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Toggle visibility for card content
+        document.querySelectorAll('.toggle-button').forEach(button => {
+            button.addEventListener('click', function () {
+                const content = this.nextElementSibling;
+                if (content.style.display === 'block') {
+                    content.style.display = 'none';
+                    this.textContent = this.textContent.replace('Menos Información', 'Más Información').replace('Cerrar', 'Cómo Preparar');
+                } else {
+                    content.style.display = 'block';
+                    this.textContent = this.textContent.replace('Más Información', 'Menos Información').replace('Cómo Preparar', 'Cerrar');
+                }
+            });
+        });
+
+        // Zoom effect on gallery images
+        document.querySelectorAll('.image-gallery img').forEach(img => {
+            img.addEventListener('click', function () {
+                const src = this.src;
+                const alt = this.alt;
+                const modal = document.getElementById('modal');
+                const modalText = document.getElementById('modal-text');
+                modalText.textContent = alt;
+                modal.style.display = 'flex';
+            });
+        });
+
+        // Close modal
+        document.querySelector('.modal-close').addEventListener('click', function () {
+            document.getElementById('modal').style.display = 'none';
+        });
+
+        // Simple animation on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        });
+
+        const hiddenElements = document.querySelectorAll('.section');
+        hiddenElements.forEach((el) => observer.observe(el));
+    </script>
+</body>
+</html>
