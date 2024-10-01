@@ -1,618 +1,155 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Descubre Grocio Prado - Joya de Chincha</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap');
-        
-        :root {
-            --primary-color: #2C3E50;
-            --secondary-color: #E67E22;
-            --accent-color: #3498DB;
-            --bg-color: #ECF0F1;
-            --text-color: #34495E;
-            --light-gray: #BDC3C7;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-        }
-        
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 3rem 0;
-            position: relative;
-            overflow: hidden;
-            background-image: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url('/api/placeholder/1200/400');
-            background-size: cover;
-            background-position: center;
-        }
-        
-        header h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            animation: fadeInDown 1s ease-out;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-        
-        header p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto;
-            animation: fadeIn 1.5s ease-out;
-        }
-        
-        nav {
-            background-color: var(--secondary-color);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        nav ul {
-            list-style-type: none;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        nav ul li {
-            margin: 0 15px;
-        }
-        
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-        
-        nav ul li a:hover {
-            background-color: var(--primary-color);
-            color: var(--secondary-color);
-        }
-        
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: auto;
-            overflow: hidden;
-            padding: 60px 0;
-        }
-        
-        .section {
-            background-color: white;
-            margin-bottom: 60px;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-        
-        h2 {
-            color: var(--primary-color);
-            margin-bottom: 30px;
-            font-size: 2.5rem;
-            font-family: 'Playfair Display', serif;
-            border-bottom: 2px solid var(--secondary-color);
-            padding-bottom: 10px;
-        }
-        
-        h3 {
-            color: var(--secondary-color);
-            margin-top: 25px;
-            margin-bottom: 15px;
-            font-size: 1.8rem;
-        }
-        
-        p {
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-        }
-        
-        ul {
-            margin-left: 25px;
-            margin-bottom: 20px;
-        }
-        
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-top: 40px;
-        }
-        
-        .gallery img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 12px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .gallery img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-        
-        #language-selector {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-        }
-        
-        #language-selector button {
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            margin-left: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            font-weight: bold;
-        }
-        
-        #language-selector button:hover {
-            background-color: var(--primary-color);
-            transform: translateY(-2px);
-        }
-        
-        .plato-tipico {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-        
-        .plato-tipico img {
-            width: 200px;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 50%;
-            margin-right: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-        
-        .plato-tipico img:hover {
-            transform: scale(1.05);
-        }
-        
-        .plato-tipico-info {
-            flex: 1;
-            min-width: 250px;
-        }
-        
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        
-        .animate-fadeIn {
-            animation: fadeIn 1s ease-out;
-        }
-        
-        #map {
-            height: 500px;
-            width: 100%;
-            margin-top: 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        
-        .plato-descripcion {
-            display: none;
-            margin-top: 15px;
-            padding: 15px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            width: 100%;
-        }
-        
-        .plato-tipico h3 {
-            cursor: pointer;
-            color: var(--secondary-color);
-            transition: color 0.3s ease;
-            display: inline-block;
-        }
-        
-        .plato-tipico h3:hover {
-            color: var(--primary-color);
-        }
-        
-        .plato-tipico h3::after {
-            content: ' ▼';
-            font-size: 0.8em;
-            vertical-align: middle;
-            transition: transform 0.3s ease;
-        }
-        
-        .plato-tipico h3.active::after {
-            transform: rotate(180deg);
-        }
-        
-        .activity, .event, .info-item {
-            background-color: #f9f9f9;
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .activity:hover, .event:hover, .info-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-        
-        .activity h3, .event h3, .info-item h3 {
-            color: var(--secondary-color);
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-        }
-        
-        #lugares-selector {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 25px;
-            border: 2px solid var(--secondary-color);
-            border-radius: 8px;
-            background-color: white;
-            color: var(--text-color);
-            font-size: 1.1rem;
-            transition: border-color 0.3s ease;
-        }
-        
-        #lugares-selector:focus {
-            outline: none;
-            border-color: var(--accent-color);
-        }
-        
-        .lugar-info {
-            display: none;
-            background-color: #f9f9f9;
-            border-radius: 12px;
-            padding: 25px;
-            margin-top: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-        }
-        
-        .lugar-info.active {
-            display: block;
-            animation: fadeIn 0.5s ease-out;
-        }
-        
-        .lugar-info img {
-            width: 100%;
-            max-width: 500px;
-            height: auto;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        /* Nuevos estilos */
-        .cta-button {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            margin-top: 20px;
-        }
-        
-        .cta-button:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .testimonial {
-            background-color: #fff;
-            border-left: 5px solid var(--accent-color);
-            padding: 20px;
-            margin: 30px 0;
-            font-style: italic;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-        
-        .testimonial-author {
-            font-weight: bold;
-            text-align: right;
-            margin-top: 10px;
-        }
-        
-        .fun-fact {
-            background-color: var(--accent-color);
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
-            font-size: 1.1rem;
-        }
-        
-        .timeline {
-            position: relative;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .timeline::after {
-            content: '';
-            position: absolute;
-            width: 6px;
-            background-color: var(--light-gray);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -3px;
-        }
-        
-        .timeline-item {
-            padding: 10px 40px;
-            position: relative;
-            background-color: inherit;
-            width: 50%;
-        }
-        
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            width: 25px;
-            height: 25px;
-            right: -17px;
-            background-color: var(--bg-color);
-            border: 4px solid var(--accent-color);
-            top: 15px;
-            border-radius: 50%;
-            z-index: 1;
-        }
-        
-        .left {
-            left: 0;
-        }
-        
-        .right {
-            left: 50%;
-        }
-        
-        .left::before {
-            content: " ";
-            height: 0;
-            position: absolute;
-            top: 22px;
-            width: 0;
-            z-index: 1;
-            right: 30px;
-            border: medium solid var(--light-gray);
-            border-width: 10px 0 10px 10px;
-            border-color: transparent transparent transparent var(--light-gray);
-        }
-        
-        .right::before {
-            content: " ";
-            height: 0;
-            position: absolute;
-            top: 22px;
-            width: 0;
-            z-index: 1;
-            left: 30px;
-            border: medium solid var(--light-gray);
-            border-width: 10px 10px 10px 0;
-            border-color: transparent var(--light-gray) transparent transparent;
-        }
-        
-        .right::after {
-            left: -16px;
-        }
-        
-        .timeline-content {
-            padding: 20px 30px;
-            background-color: white;
-            position: relative;
-            border-radius: 6px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-    </style>
-    </head>
-    <body>
-        <header>
-            <h1 data-translate="title">Descubre Grocio Prado</h1>
-            <p data-translate="subtitle">La joya escondida de Chincha: Un tesoro de historia, cultura y sabores</p>
-            <div id="language-selector">
-                <button onclick="changeLanguage('es')">Español</button>
-                <button onclick="changeLanguage('en')">English</button>
+</style>
+</head>
+<body>
+    <header>
+        <h1 data-translate="title">Descubre Grocio Prado</h1>
+        <p data-translate="subtitle">La joya escondida de Chincha: Un tesoro de historia, cultura y sabores</p>
+        <div id="language-selector">
+            <button onclick="changeLanguage('es')">Español</button>
+            <button onclick="changeLanguage('en')">English</button>
+        </div>
+        <a href="#info-practica" class="cta-button" data-translate="cta-button">Planea tu visita</a>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#descripcion" data-translate="nav-description">Descripción</a></li>
+            <li><a href="#historia" data-translate="nav-history">Historia</a></li>
+            <li><a href="#lugares" data-translate="nav-places">Lugares</a></li>
+            <li><a href="#gastronomia" data-translate="nav-gastronomy">Gastronomía</a></li>
+            <li><a href="#actividades" data-translate="nav-activities">Actividades</a></li>
+            <li><a href="#eventos" data-translate="nav-events">Eventos</a></li>
+            <li><a href="#economia" data-translate="nav-economy">Economía</a></li>
+            <li><a href="#info-practica" data-translate="nav-info">Info Práctica</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section id="descripcion" class="section animate-fadeIn">
+            <h2 data-translate="welcome-title">Bienvenidos a Grocio Prado</h2>
+            <p data-translate="welcome-text">Grocio Prado, un encantador distrito peruano ubicado en la provincia de Chincha, región de Ica, es un tesoro escondido que cautiva a todos sus visitantes. Fundado el 24 de junio de 1963, este distrito rinde homenaje a don Manuel Grocio Prado, un destacado personaje de la historia peruana cuya influencia sigue inspirando a la comunidad local.</p>
+            <p data-translate="location-text">Situado a aproximadamente 200 km al sur de Lima, Grocio Prado disfruta de una ubicación privilegiada entre la costa del Pacífico y los contrafuertes andinos. Esta singular geografía no solo le confiere un clima único, sino que también ha moldeado su rica cultura y tradiciones.</p>
+            <p data-translate="climate-text">Con un clima cálido y seco típico de la costa peruana, Grocio Prado ofrece una experiencia única que combina historia, cultura y belleza natural. La temperatura promedio oscila entre los 18°C y 28°C a lo largo del año, lo que lo convierte en un destino ideal para visitar en cualquier temporada, ya sea que busques disfrutar del sol en sus playas cercanas o explorar su patrimonio cultural.</p>
+            <div class="fun-fact" data-translate="fun-fact-1">
+                ¿Sabías que? Grocio Prado es conocido como la "Capital del Buen Pisco" debido a la calidad excepcional del pisco producido en la región.
             </div>
-            <a href="#info-practica" class="cta-button" data-translate="cta-button">Planea tu visita</a>
-        </header>
-        
-        <nav>
+            <h3 data-translate="population-title">Población y Demografía</h3>
+            <p data-translate="population-text">Grocio Prado cuenta con una población de aproximadamente 25,000 habitantes, según el último censo. La comunidad es conocida por su calidez y hospitalidad, manteniendo vivas las tradiciones culturales de la región mientras abraza el progreso y el desarrollo. La diversidad étnica de Grocio Prado, que incluye descendientes de africanos, indígenas y europeos, se refleja en su rica cultura, gastronomía y festividades.</p>
+            <div id="map"></div>
+        </section>
+
+        <section id="historia" class="section animate-fadeIn">
+            <h2 data-translate="history-title">Historia y Cultura</h2>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>Época Pre-Hispánica</h3>
+                        <p>La región estuvo habitada por diversas culturas, incluyendo los Paracas y los Chincha.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>Época Colonial</h3>
+                        <p>Llegada de los españoles y establecimiento de haciendas en la zona.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>Siglo XIX</h3>
+                        <p>Manuel Grocio Prado, educador y político, contribuye significativamente al desarrollo de la región.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>1963</h3>
+                        <p>Fundación oficial del distrito de Grocio Prado.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>Actualidad</h3>
+                        <p>Grocio Prado se consolida como un importante centro cultural y turístico de la región.</p>
+                    </div>
+                </div>
+            </div>
+            <p data-translate="history-text">Grocio Prado, establecido como distrito en 1963, nació de la separación de territorios del distrito de Chincha Alta. Su nombre conmemora la labor y dedicación de don Manuel Grocio Prado, un ilustre educador y político peruano del siglo XIX, quien contribuyó significativamente al desarrollo de la educación en la región.</p>
+            <p data-translate="history-evolution">A lo largo de los años, el distrito ha evolucionado, integrando diversas actividades económicas y sociales que han contribuido a su crecimiento, manteniendo vivas sus tradiciones y cultura. La agricultura y la ganadería han sido pilares importantes en su desarrollo económico, complementadas en las últimas décadas por el crecimiento del turismo y la industria local.</p>
+            <h3 data-translate="culture-title">Cultura y Tradiciones</h3>
+            <p data-translate="culture-text">La cultura de Grocio Prado es una rica mezcla de influencias indígenas, africanas y españolas, reflejada en su música, danzas y festividades. El distrito es conocido por preservar tradiciones ancestrales mientras se adapta a la modernidad. La danza de los negritos, por ejemplo, es una manifestación cultural única que combina elementos africanos con ritmos locales.</p>
+            <h3 data-translate="festivities-title">Festividades y Celebraciones</h3>
             <ul>
-                <li><a href="#descripcion" data-translate="nav-description">Descripción</a></li>
-                <li><a href="#historia" data-translate="nav-history">Historia</a></li>
-                <li><a href="#lugares" data-translate="nav-places">Lugares</a></li>
-                <li><a href="#gastronomia" data-translate="nav-gastronomy">Gastronomía</a></li>
-                <li><a href="#actividades" data-translate="nav-activities">Actividades</a></li>
-                <li><a href="#eventos" data-translate="nav-events">Eventos</a></li>
-                <li><a href="#economia" data-translate="nav-economy">Economía</a></li>
-                <li><a href="#info-practica" data-translate="nav-info">Info Práctica</a></li>
+                <li data-translate="festivities-candelaria">Fiesta de la Virgen de la Candelaria (2 de febrero): Una celebración religiosa que combina la devoción católica con tradiciones locales. Durante esta festividad, las calles se llenan de procesiones, música y danzas tradicionales.</li>
+                <li data-translate="festivities-anniversary">Aniversario de Grocio Prado (24 de junio): Conmemora la fundación del distrito con desfiles, ferias y eventos culturales. Es una oportunidad para que la comunidad muestre su orgullo local y comparta su cultura con visitantes de todo el país.</li>
+                <li data-translate="festivities-santa-rosa">Fiesta de Santa Rosa de Lima (30 de agosto): Homenaje a la santa patrona del Perú y las Américas. Esta celebración incluye misas, procesiones y ferias gastronómicas que resaltan los platos típicos de la región.</li>
+                <li data-translate="festivities-vendimia">Festival de la Vendimia (marzo): Celebra la cosecha de uva y la producción de vino y pisco en la región. Este colorido evento incluye la tradicional "pisa de uva", degustaciones de vino y pisco, y espectáculos folclóricos.</li>
             </ul>
-        </nav>
-    
-        <div class="container">
-            <section id="descripcion" class="section animate-fadeIn">
-                <h2 data-translate="welcome-title">Bienvenidos a Grocio Prado</h2>
-                <p data-translate="welcome-text">Grocio Prado, un encantador distrito peruano ubicado en la provincia de Chincha, región de Ica, es un tesoro escondido que cautiva a todos sus visitantes. Fundado el 24 de junio de 1963, este distrito rinde homenaje a don Manuel Grocio Prado, un destacado personaje de la historia peruana cuya influencia sigue inspirando a la comunidad local.</p>
-                <p data-translate="location-text">Situado a aproximadamente 200 km al sur de Lima, Grocio Prado disfruta de una ubicación privilegiada entre la costa del Pacífico y los contrafuertes andinos. Esta singular geografía no solo le confiere un clima único, sino que también ha moldeado su rica cultura y tradiciones.</p>
-                <p data-translate="climate-text">Con un clima cálido y seco típico de la costa peruana, Grocio Prado ofrece una experiencia única que combina historia, cultura y belleza natural. La temperatura promedio oscila entre los 18°C y 28°C a lo largo del año, lo que lo convierte en un destino ideal para visitar en cualquier temporada, ya sea que busques disfrutar del sol en sus playas cercanas o explorar su patrimonio cultural.</p>
-                <div class="fun-fact" data-translate="fun-fact-1">
-                    ¿Sabías que? Grocio Prado es conocido como la "Capital del Buen Pisco" debido a la calidad excepcional del pisco producido en la región.
-                </div>
-                <h3 data-translate="population-title">Población y Demografía</h3>
-                <p data-translate="population-text">Grocio Prado cuenta con una población de aproximadamente 25,000 habitantes, según el último censo. La comunidad es conocida por su calidez y hospitalidad, manteniendo vivas las tradiciones culturales de la región mientras abraza el progreso y el desarrollo. La diversidad étnica de Grocio Prado, que incluye descendientes de africanos, indígenas y europeos, se refleja en su rica cultura, gastronomía y festividades.</p>
-                <div id="map"></div>
-            </section>
-    
-            <section id="historia" class="section animate-fadeIn">
-                <h2 data-translate="history-title">Historia y Cultura</h2>
-                <div class="timeline">
-                    <div class="timeline-item left">
-                        <div class="timeline-content">
-                            <h3>Época Pre-Hispánica</h3>
-                            <p>La región estuvo habitada por diversas culturas, incluyendo los Paracas y los Chincha.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item right">
-                        <div class="timeline-content">
-                            <h3>Época Colonial</h3>
-                            <p>Llegada de los españoles y establecimiento de haciendas en la zona.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item left">
-                        <div class="timeline-content">
-                            <h3>Siglo XIX</h3>
-                            <p>Manuel Grocio Prado, educador y político, contribuye significativamente al desarrollo de la región.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item right">
-                        <div class="timeline-content">
-                            <h3>1963</h3>
-                            <p>Fundación oficial del distrito de Grocio Prado.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item left">
-                        <div class="timeline-content">
-                            <h3>Actualidad</h3>
-                            <p>Grocio Prado se consolida como un importante centro cultural y turístico de la región.</p>
-                        </div>
-                    </div>
-                </div>
-                <p data-translate="history-text">Grocio Prado, establecido como distrito en 1963, nació de la separación de territorios del distrito de Chincha Alta. Su nombre conmemora la labor y dedicación de don Manuel Grocio Prado, un ilustre educador y político peruano del siglo XIX, quien contribuyó significativamente al desarrollo de la educación en la región.</p>
-                <p data-translate="history-evolution">A lo largo de los años, el distrito ha evolucionado, integrando diversas actividades económicas y sociales que han contribuido a su crecimiento, manteniendo vivas sus tradiciones y cultura. La agricultura y la ganadería han sido pilares importantes en su desarrollo económico, complementadas en las últimas décadas por el crecimiento del turismo y la industria local.</p>
-                <h3 data-translate="culture-title">Cultura y Tradiciones</h3>
-                <p data-translate="culture-text">La cultura de Grocio Prado es una rica mezcla de influencias indígenas, africanas y españolas, reflejada en su música, danzas y festividades. El distrito es conocido por preservar tradiciones ancestrales mientras se adapta a la modernidad. La danza de los negritos, por ejemplo, es una manifestación cultural única que combina elementos africanos con ritmos locales.</p>
-                <h3 data-translate="festivities-title">Festividades y Celebraciones</h3>
-                <ul>
-                    <li data-translate="festivities-candelaria">Fiesta de la Virgen de la Candelaria (2 de febrero): Una celebración religiosa que combina la devoción católica con tradiciones locales. Durante esta festividad, las calles se llenan de procesiones, música y danzas tradicionales.</li>
-                    <li data-translate="festivities-anniversary">Aniversario de Grocio Prado (24 de junio): Conmemora la fundación del distrito con desfiles, ferias y eventos culturales. Es una oportunidad para que la comunidad muestre su orgullo local y comparta su cultura con visitantes de todo el país.</li>
-                    <li data-translate="festivities-santa-rosa">Fiesta de Santa Rosa de Lima (30 de agosto): Homenaje a la santa patrona del Perú y las Américas. Esta celebración incluye misas, procesiones y ferias gastronómicas que resaltan los platos típicos de la región.</li>
-                    <li data-translate="festivities-vendimia">Festival de la Vendimia (marzo): Celebra la cosecha de uva y la producción de vino y pisco en la región. Este colorido evento incluye la tradicional "pisa de uva", degustaciones de vino y pisco, y espectáculos folclóricos.</li>
-                </ul>
-                <div class="testimonial">
-                    <p>"Visitar Grocio Prado durante el Festival de la Vendimia fue una experiencia inolvidable. La energía de la gente, los sabores de la comida local y la calidad del pisco me dejaron maravillado. ¡Definitivamente volveré!"</p>
-                    <p class="testimonial-author">- Carlos Rodríguez, turista de Lima</p>
-                </div>
-            </section>
-    
-            <section id="lugares" class="section animate-fadeIn">
-                <h2 data-translate="places-title">Lugares Turísticos Imperdibles</h2>
-                <select id="lugares-selector" onchange="mostrarLugar()">
-                    <option value="" data-translate="places-select">Selecciona un lugar turístico</option>
-                    <option value="plaza">Plaza de Armas de Grocio Prado</option>
-                    <option value="iglesia">Iglesia de Grocio Prado</option>
-                    <option value="parques">Parques y Áreas Recreativas</option>
-                    <option value="hacienda">Hacienda San José</option>
-                    <option value="playas">Playas cercanas</option>
-                    <option value="petroglifos">casa de victor</option>
-                    <option value="chincha-baja">Centro Histórico de Chincha Baja</option>
-                </select>
-    
-                <div id="plaza" class="lugar-info">
-                    <h3>Plaza de Armas de Grocio Prado</h3>
-                    <img src="/api/placeholder/500/300" alt="Plaza de Armas de Grocio Prado">
-                    <p>Centro histórico y cultural del distrito, rodeada de edificios coloniales y republicanos. Es el corazón de la vida comunitaria donde se celebran importantes eventos cívicos y culturales. La plaza está adornada con hermosos jardines y una fuente central, ofreciendo un espacio tranquilo para relajarse y observar la vida cotidiana de Grocio Prado.</p>
-                </div>
-    
-                <div id="iglesia" class="lugar-info">
-                    <h3>Iglesia Matriz de Grocio Prado</h3>
-                    <img src="/api/placeholder/500/300" alt="Iglesia Matriz de Grocio Prado">
-                    <p>Hermosa arquitectura colonial y centro de devoción local, que data del siglo XVIII. Su fachada y interior son ejemplos destacados del arte religioso de la época. El altar mayor, elaboradamente tallado y cubierto de pan de oro, es particularmente impresionante. Los domingos, la misa atrae a una gran cantidad de fieles, ofreciendo una visión auténtica de la vida espiritual de la comunidad.</p>
-                </div>
-    
-                <div id="parques" class="lugar-info">
-                    <h3>Parques y Áreas Recreativas</h3>
-                    <img src="/api/placeholder/500/300" alt="Parques de Grocio Prado">
-                    <p>Grocio Prado cuenta con varios parques y áreas verdes que ofrecen espacios de esparcimiento para locales y visitantes. Ideales para picnics, deportes y actividades al aire libre. El Parque Ecológico es particularmente notable, con senderos para caminar, áreas de juegos para niños y un pequeño lago donde se pueden alquilar botes a pedales.</p>
-                </div>
-    
-                <div id="hacienda" class="lugar-info">
-                    <h3>Hacienda San José</h3>
-                    <img src="/api/placeholder/500/300" alt="Hacienda San José">
-                    <p>Aunque técnicamente ubicada en el vecino distrito de El Carmen, esta hacienda colonial del siglo XVII es un sitio histórico imperdible. Ofrece tours que narran la historia de la esclavitud en la región. Los visitantes pueden explorar los túneles subterráneos utilizados durante la época colonial y aprender sobre la vida en una hacienda peruana tradicional.</p>
-                </div>
-    
-                <div id="playas" class="lugar-info">
-                    <h3>Playas cercanas</h3>
-                    <img src="/api/placeholder/500/300" alt="Playas cerca de Grocio Prado">
-                    <p>A poca distancia se encuentran hermosas playas como Wakama y Las Totoritas, perfectas para disfrutar del sol y el mar de la costa peruana. Estas playas ofrecen aguas tranquilas ideales para nadar y practicar deportes acuáticos. Los fines de semana, se llenan de familias locales que disfrutan de picnics y juegos en la arena.</p>
-                </div>
-    
-                <div id="petroglifos" class="lugar-info">
-                    <h3>Petroglifos de Huancor</h3>
-                    <img src="/api/placeholder/500/300" alt="Petroglifos de Huancor">
-                    <p>Situados en las afueras de Grocio Prado, estos antiguos grabados en roca son testimonio de las culturas pre-incaicas que habitaron la región. Un sitio fascinante para los amantes de la arqueología. Los petroglifos, que datan de hace más de 2000 años, representan figuras humanas, animales y símbolos geométricos cuyo significado aún intriga a los arqueólogos.</p>
-                </div>
-    
-                <div id="chincha-baja" class="lugar-info">
-                    <h3>Centro Histórico de Chincha Baja</h3>
-                    <img src="/api/placeholder/500/300" alt="Centro Histórico de Chincha Baja">
-                    <p>A corta distancia de Grocio Prado, el centro histórico de Chincha Baja ofrece una mirada a la arquitectura colonial y republicana de la región. Destacan la Iglesia de Santo Domingo, con su impresionante torre de reloj, y las casonas coloniales que rodean la plaza principal, muchas de las cuales han sido convertidas en museos y galerías de arte.</p>
-                </div>
-    
-                <div id="bodegas" class="lugar-info">
-                    <h3>Bodegas de Pisco</h3>
-                    <img src="/api/placeholder/500/300" alt="Bodegas de Pisco en Grocio Prado">
-                    <p>Grocio Prado es famoso por sus bodegas de pisco, donde se produce este destilado de uva, orgullo nacional del Perú. Visitar estas bodegas ofrece una experiencia única para aprender sobre el proceso de elaboración del pisco, desde la cosecha de la uva hasta la destilación. Muchas bodegas ofrecen tours guiados que culminan con degustaciones de diferentes variedades de pisco y vino.</p>
-                </div>
-            </section>
-    
-            <section id="gastronomia" class
+            <div class="testimonial">
+                <p>"Visitar Grocio Prado durante el Festival de la Vendimia fue una experiencia inolvidable. La energía de la gente, los sabores de la comida local y la calidad del pisco me dejaron maravillado. ¡Definitivamente volveré!"</p>
+                <p class="testimonial-author">- Carlos Rodríguez, turista de Lima</p>
+            </div>
+        </section>
+
+        <section id="lugares" class="section animate-fadeIn">
+            <h2 data-translate="places-title">Lugares Turísticos Imperdibles</h2>
+            <select id="lugares-selector" onchange="mostrarLugar()">
+                <option value="" data-translate="places-select">Selecciona un lugar turístico</option>
+                <option value="plaza">Plaza de Armas de Grocio Prado</option>
+                <option value="iglesia">Iglesia Matriz de Grocio Prado</option>
+                <option value="parques">Parques y Áreas Recreativas</option>
+                <option value="hacienda">Hacienda San José</option>
+                <option value="playas">Playas cercanas</option>
+                <option value="petroglifos">Petroglifos de Huancor</option>
+                <option value="chincha-baja">Centro Histórico de Chincha Baja</option>
+                <option value="bodegas">Bodegas de Pisco</option>
+            </select>
+
+            <div id="plaza" class="lugar-info">
+                <h3>Plaza de Armas de Grocio Prado</h3>
+                <img src="/api/placeholder/500/300" alt="Plaza de Armas de Grocio Prado">
+                <p>Centro histórico y cultural del distrito, rodeada de edificios coloniales y republicanos. Es el corazón de la vida comunitaria donde se celebran importantes eventos cívicos y culturales. La plaza está adornada con hermosos jardines y una fuente central, ofreciendo un espacio tranquilo para relajarse y observar la vida cotidiana de Grocio Prado.</p>
+            </div>
+
+            <div id="iglesia" class="lugar-info">
+                <h3>Iglesia Matriz de Grocio Prado</h3>
+                <img src="/api/placeholder/500/300" alt="Iglesia Matriz de Grocio Prado">
+                <p>Hermosa arquitectura colonial y centro de devoción local, que data del siglo XVIII. Su fachada y interior son ejemplos destacados del arte religioso de la época. El altar mayor, elaboradamente tallado y cubierto de pan de oro, es particularmente impresionante. Los domingos, la misa atrae a una gran cantidad de fieles, ofreciendo una visión auténtica de la vida espiritual de la comunidad.</p>
+            </div>
+
+            <div id="parques" class="lugar-info">
+                <h3>Parques y Áreas Recreativas</h3>
+                <img src="/api/placeholder/500/300" alt="Parques de Grocio Prado">
+                <p>Grocio Prado cuenta con varios parques y áreas verdes que ofrecen espacios de esparcimiento para locales y visitantes. Ideales para picnics, deportes y actividades al aire libre. El Parque Ecológico es particularmente notable, con senderos para caminar, áreas de juegos para niños y un pequeño lago donde se pueden alquilar botes a pedales.</p>
+            </div>
+
+            <div id="hacienda" class="lugar-info">
+                <h3>Hacienda San José</h3>
+                <img src="/api/placeholder/500/300" alt="Hacienda San José">
+                <p>Aunque técnicamente ubicada en el vecino distrito de El Carmen, esta hacienda colonial del siglo XVII es un sitio histórico imperdible. Ofrece tours que narran la historia de la esclavitud en la región. Los visitantes pueden explorar los túneles subterráneos utilizados durante la época colonial y aprender sobre la vida en una hacienda peruana tradicional.</p>
+            </div>
+
+            <div id="playas" class="lugar-info">
+                <h3>Playas cercanas</h3>
+                <img src="/api/placeholder/500/300" alt="Playas cerca de Grocio Prado">
+                <p>A poca distancia se encuentran hermosas playas como Wakama y Las Totoritas, perfectas para disfrutar del sol y el mar de la costa peruana. Estas playas ofrecen aguas tranquilas ideales para nadar y practicar deportes acuáticos. Los fines de semana, se llenan de familias locales que disfrutan de picnics y juegos en la arena.</p>
+            </div>
+
+            <div id="petroglifos" class="lugar-info">
+                <h3>Petroglifos de Huancor</h3>
+                <img src="/api/placeholder/500/300" alt="Petroglifos de Huancor">
+                <p>Situados en las afueras de Grocio Prado, estos antiguos grabados en roca son testimonio de las culturas pre-incaicas que habitaron la región. Un sitio fascinante para los amantes de la arqueología. Los petroglifos, que datan de hace más de 2000 años, representan figuras humanas, animales y símbolos geométricos cuyo significado aún intriga a los arqueólogos.</p>
+            </div>
+
+            <div id="chincha-baja" class="lugar-info">
+                <h3>Centro Histórico de Chincha Baja</h3>
+                <img src="/api/placeholder/500/300" alt="Centro Histórico de Chincha Baja">
+                <p>A corta distancia de Grocio Prado, el centro histórico de Chincha Baja ofrece una mirada a la arquitectura colonial y republicana de la región. Destacan la Iglesia de Santo Domingo, con su impresionante torre de reloj, y las casonas coloniales que rodean la plaza principal, muchas de las cuales han sido convertidas en museos y galerías de arte.</p>
+            </div>
+
+            <div id="bodegas" class="lugar-info">
+                <h3>Bodegas de Pisco</h3>
+                <img src="/api/placeholder/500/300" alt="Bodegas de Pisco en Grocio Prado">
+                <p>Grocio Prado es famoso por sus bodegas de pisco, donde se produce este destilado de uva, orgullo nacional del Perú. Visitar estas bodegas ofrece una experiencia única para aprender sobre el proceso de elaboración del pisco, desde la cosecha de la uva hasta la destilación. Muchas bodegas ofrecen tours guiados que culminan con degustaciones de diferentes variedades de pisco y vino.</p>
+            </div>
+        </section>
+
+        <section id="gastronomia" class
