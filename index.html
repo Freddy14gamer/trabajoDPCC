@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descubre Grocio Prado</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@300;400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background: linear-gradient(rgba(71, 141, 100, 0.7), rgba(71, 136, 41, 0.7)), url('/api/placeholder/1200/600') center/cover no-repeat;
+            color: #ffffff;
+            text-align: center;
+            padding: 4rem 0;
+            position: relative;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Lora', serif;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        #language-selector {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+        }
+
+        select {
+            padding: 0.5rem;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: none;
+            background-color: #fff;
+            color: #366e44;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #387752;
+            color: #fff;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #ffffff;
+        }
+
+        nav {
+            background-color: #253f2d;
+            padding: 1rem 0;
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            margin: 0 1rem;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ff6b6b;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #2d3436;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            margin: 1.5rem 0 1rem;
+            color: #2d3436;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        .fun-fact {
+            background-color: #f0f0f0;
+            border-left: 5px solid #ff6b6b;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+        }
+
+        #map {
+            height: 400px;
+            background-color: #e0e0e0;
+            margin-top: 1rem;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: #ff6b6b;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -17px;
+            background-color: #ff6b6b;
+            border: 4px solid #ff6b6b;
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .left {
+            left: 0;
+        }
+
+        .right {
+            left: 50%;
+        }
+
+        .left::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            right: 30px;
+            border: medium solid #ff6b6b;
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent #ff6b6b;
+        }
+
+        .right::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            left: 30px;
+            border: medium solid #ff6b6b;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent #ff6b6b transparent transparent;
+        }
+
+        .right::after {
+            left: -16px;
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: #f0f0f0;
+            position: relative;
+            border-radius: 6px;
+        }
+
+        .testimonial {
+            background-color: #f9f9f9;
+            border-left: 5px solid #2d3436;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            text-align: right;
+        }
+
+        #lugares-selector, #platos-selector {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .lugar-info, .plato-info {
+            display: none;
+        }
+
+        .lugar-info.active, .plato-info.active {
+            display: block;
+        }
+
+        .lugar-info img, .plato-info img, .hotel img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .hotel {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+        }
+
+        .recipe {
+            background-color: #f0f0f0;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+
+        .recipe h4 {
+            color: #1b6d40;
+            margin-bottom: 0.5rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 1s ease-in;
+        }
+
+        @media screen and (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::before {
+                left: 60px;
+                border: medium solid #466432;
+                border-width: 10px 10px 10px 0;
+                border-color: transparent #1b7c54 transparent transparent;
+            }
+
+            .left::after, .right::after {
+                left: 15px;
+            }
+
+            .right {
+                left: 0%;
+            }
+        }
+        #floating-logo:hover {
+            opacity: 0.8;
+            transform: scale(1.1); /* Efecto de zoom al pasar el mouse */
+            transition: all 0.3s ease;
+        }
+        #floating-logo {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            width: 60px; /* Ajusta el tamaño de la imagen aquí */
+            height: 60px;
+            background: url('igle.jpeg') no-repeat center/contain; /* Ruta de la imagen */
+            background-size: contain;
+            cursor: pointer;
+            z-index: 1000; /* Asegúrate de que esté encima del contenido */
+        }
+        .image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        .image-gallery img {
+            width: 200px;
+            height: auto;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .image-gallery img:hover {
+            transform: scale(2.2); /* Efecto de zoom */
+            box-shadow: 0 6px 12px rgb(3, 3, 3); /* Sombra al hacer zoom */
+        }
+        .hotel img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hotel img:hover {
+            transform: scale(1.1); /* Efecto de zoom */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Sombra para resaltar la imagen */
+        }
+        
+        .hotel {
+            margin-bottom: 2rem;
+        }
+        
+        .hotel h3 {
+            margin-top: 1rem;
+            font-size: 1.8rem;
+            color: #333;
+        }
+        
+        .hotel p {
+            margin: 0.5rem 0 1rem;
+            color: #555;
+        }
+        
+        .hotel ul {
+            padding-left: 1.5rem;
+        }
+        
+        .hotel ul li {
+            list-style-type: disc;
+            margin: 0.5rem 0;
+            color: #777;
+        }
+        /* CSS para las imágenes con efecto de zoom */
+.zoomable {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.zoomable:hover {
+    transform: scale(1.05);
+}
+
+/* CSS para el fondo de zoom al hacer clic */
+.zoom-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    visibility: hidden;
+    z-index: 1000;
+}
+
+.zoom-overlay img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 8px;
+}
+
+.zoom-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+        
+        
+                
+    </style>
+</head>
+<body>
+    <header>
+        <h1 data-translate="title">Descubre Grocio Prado</h1>
+        <p data-translate="subtitle">La joya escondida de Chincha: Un tesoro de historia, cultura y sabores</p>
+        <div id="language-selector">
+            <select onchange="changeLanguage(this.value)">
+                <option value="es">Español</option>
+                <option value="en">English</option>
+            </select>
+        </div>
+        <a href="#info-practica" class="cta-button" data-translate="cta-button">Planea tu visita</a>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#descripcion" data-translate="nav-description">Descripción</a></li>
+            <li><a href="#historia" data-translate="nav-history">Historia</a></li>
+            <li><a href="#lugares" data-translate="nav-places">Lugares</a></li>
+            <li><a href="#gastronomia" data-translate="nav-gastronomy">Gastronomía</a></li>
+            <li><a href="#actividades" data-translate="nav-activities">Actividades</a></li>
+            <li><a href="#eventos" data-translate="nav-events">Eventos</a></li>
+            <li><a href="#economia" data-translate="nav-economy">Economía</a></li>
+            <li><a href="#hoteles" data-translate="nav-hotels">Hoteles</a></li>
+            <li><a href="#info-practica" data-translate="nav-info">Info Práctica</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section id="descripcion" class="section animate-fadeIn">
+            <h2 data-translate="description-title">Bienvenidos a Grocio Prado</h2>
+            <p data-translate="description-text">Grocio Prado es un encantador distrito ubicado en la provincia de Chincha, departamento de Ica, Perú. Conocido por su rica historia, tradiciones culturales y la calidez de su gente, Grocio Prado ofrece una experiencia única para los visitantes que buscan descubrir la autenticidad del Perú central.</p>
+            <p data-translate="description-text2">Con una población de aproximadamente 22,000 (2005) habitantes, este distrito combina la tranquilidad de la vida rural con la energía de una comunidad en crecimiento. Sus calles empedradas, plazas coloniales y la imponente presencia de la cordillera de los Andes en el horizonte crean un escenario pintoresco que cautiva a todos los que lo visitan.</p>
+            <div class="fun-fact" data-translate="fun-fact">
+                ¿Sabías que Grocio Prado es conocido como la "Tierra de la Beata Melchorita", una figura religiosa muy venerada en la región?
+            </div>
+        </section>
+
+        <section id="historia" class="section animate-fadeIn">
+            <h2 data-translate="history-title">Historia</h2>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>Época Pre-Inca</h3>
+                        <p>La región estuvo habitada por la cultura Chincha, conocida por su habilidad en el comercio marítimo y la agricultura.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>Conquista Inca</h3>
+                        <p>Alrededor del siglo XV, el área fue incorporada al Imperio Inca, enriqueciendo su cultura y sistemas agrícolas.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>Época Colonial</h3>
+                        <p>Con la llegada de los españoles, se establecieron haciendas y se introdujo el cultivo de la vid, base de la industria del pisco.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>Fundación del Distrito</h3>
+                        <p>Grocio Prado fue oficialmente fundado el 2 de enero de 1857, como parte de la reorganización territorial del Perú republicano.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>Siglo XX</h3>
+                        <p>El distrito experimentó un crecimiento significativo en agricultura y se convirtió en un importante centro de producción de algodón y uva.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>Actualidad</h3>
+                        <p>Hoy, Grocio Prado es conocido por su producción agrícola, su rica gastronomía y como un destino turístico emergente en la región de Ica.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="artesanias" class="section animate-fadeIn">
+            <h2 data-translate="handicrafts-title">Artesanías y Oficios Tradicionales de Grocio Prado</h2>
+            <p data-translate="handicrafts-intro">En Grocio Prado, las tradiciones de artesanía incluyen una variedad de técnicas y oficios que se mantienen vivos gracias a la dedicación de los artesanos locales. Desde la confección de tejidos hasta la creación de cerámicas, estos trabajos representan el corazón cultural del distrito.</p>
+        
+            <div class="craft">
+                <h3>Cerámica Artesanal</h3>
+                <img src="sera.jpg" alt="Cerámica Artesanal" onclick="zoomImage(this)">
+                <p>La cerámica de Grocio Prado es otra tradición artesanal importante. Los artesanos moldean figuras a mano utilizando arcilla local, creando vasijas, platos, y figuras decorativas que representan escenas de la vida cotidiana y mitos peruanos.</p>
+            </div>
+        
+            <div class="craft">
+                <h3>Artesanías en Junco</h3>
+                <img src="tejido.jpeg" alt="Artesanías en Junco" onclick="zoomImage(this)">
+                <p>Las artesanías en junco son una tradición en Grocio Prado que ha pasado de generación en generación. Los artesanos utilizan juncos naturales recolectados de los humedales cercanos para crear una variedad de objetos decorativos y utilitarios. Entre los productos más comunes se encuentran canastos, cestas, esteras, y sombreros, cada uno trabajado a mano con gran destreza y paciencia.</p>
+            
+                <h4>Importancia Cultural</h4>
+                <p>Las artesanías en junco no solo son productos funcionales, sino también piezas de expresión cultural en Grocio Prado. Los artesanos suelen transmitir sus técnicas a los más jóvenes, y la venta de estos productos es una fuente importante de ingresos para la comunidad. Además, el uso de junco promueve prácticas sostenibles, aprovechando los recursos naturales locales sin dañar el ecosistema.</p>
+                <h4>Impacto Económico del Junco</h4>
+                <p>El junco tiene un rol significativo en la economía de Grocio Prado. La recolección y procesamiento de este material generan empleo y ofrecen una alternativa de ingreso para las familias. Las artesanías de junco son altamente valoradas tanto en el mercado local como en el turismo, y muchas de ellas son exportadas a otras regiones y países. Este recurso natural sostenible fomenta el desarrollo económico mientras respeta el ambiente, ya que el uso del junco ayuda a preservar los humedales locales.</p>
+
+            </div>            
+        </section>
+        
+        <!-- Estilos CSS para el efecto de zoom -->
+        <style>
+            .craft img {
+                max-width: 100%;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: transform 0.3s ease;
+            }
+        
+            /* Zoom al hacer clic */
+            .zoomed {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(1.5);
+                z-index: 1000;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            }
+        </style>
+        
+        <!-- Script JavaScript para el efecto de zoom -->
+        <script>
+            function zoomImage(img) {
+                img.classList.toggle("zoomed");
+            }
+        
+            document.addEventListener("click", function(event) {
+                const zoomedImg = document.querySelector(".zoomed");
+                if (zoomedImg && !zoomedImg.contains(event.target)) {
+                    zoomedImg.classList.remove("zoomed");
+                }
+            });
+        </script>
+        
+        <section id="lugares" class="section animate-fadeIn">
+            <h2 data-translate="places-title">Lugares Turísticos Imperdibles</h2>
+            <select id="lugares-selector" onchange="mostrarLugar()">
+                <option value="" data-translate="places-select">Selecciona un lugar turístico</option>
+                <option value="plaza">Plaza de Armas de Grocio Prado</option>
+                <option value="iglesia">Iglesia Matriz de Grocio Prado</option>
+                <option value="melchorita">Santuario de la Beata Melchorita</option>
+            </select>
+
+            <div id="plaza" class="lugar-info">
+                <h3>Plaza de Armas de Grocio Prado</h3>
+                <img src="gro.jpeg" alt="Plaza de Armas de Grocio Prado">
+                <p>La Plaza de Armas es el corazón de<p>La Plaza de Armas es el corazón de Grocio Prado, un espacio público vibrante que refleja la historia y la vida cotidiana del distrito. Rodeada de edificios coloniales y republicanos, la plaza es un punto de encuentro para locales y turistas. Su diseño incluye jardines bien cuidados, una fuente central y bancas que invitan al descanso y la contemplación.</p>
+                <p>Eventos importantes como el aniversario del distrito y festivales culturales se celebran aquí, convirtiendo la plaza en el escenario principal de la vida comunitaria. Los fines de semana, es común ver a familias disfrutando del aire libre y a vendedores ambulantes ofreciendo dulces y snacks típicos.</p>
+            </div>
+
+            <div id="iglesia" class="lugar-info">
+                <h3>Iglesia Matriz de Grocio Prado</h3>
+                <img src="igle.jpeg" alt="Iglesia Matriz de Grocio Prado">
+                <p>La Iglesia Matriz, dedicada a San Pedro, es un hermoso ejemplo de arquitectura colonial que data del siglo XVIII. Su fachada blanca y sus torres gemelas son un hito visual en el paisaje urbano de Grocio Prado. El interior de la iglesia alberga valiosas obras de arte religioso, incluyendo pinturas de la Escuela Cusqueña y tallas en madera dorada.</p>
+                <p>La iglesia juega un papel central en las celebraciones religiosas del distrito, especialmente durante la Semana Santa y las fiestas patronales. Los visitantes pueden apreciar la belleza arquitectónica y la paz del recinto, así como participar en las misas dominicales para experimentar la devoción local.</p>
+            </div>
+
+            <div id="melchorita" class="lugar-info">
+                <h3>Santuario de la Beata Melchorita</h3>
+                <img src="bea.jpeg" alt="Santuario de la Beata Melchorita">
+                <img src="bea2.jpeg" alt="">
+                <p>El Santuario de la Beata Melchorita es un importante centro de peregrinación dedicado a Melchora Saravia Tasayco, conocida como la "Santa de Grocio Prado". Nacida en 1897, Melchorita es venerada por su vida de servicio y los milagros atribuidos a su intercesión. El santuario, de arquitectura moderna, alberga sus reliquias y es visitado por miles de fieles cada año.</p>
+                <p>El complejo incluye jardines, una capilla y un museo que narra la vida y obra de Melchorita. Los devotos dejan velas, flores y placas de agradecimiento por los favores recibidos. La fiesta en honor a la Beata Melchorita, celebrada el 4 de diciembre, es uno de los eventos religiosos más importantes de la región, atrayendo a peregrinos de todo el Perú.</p>
+            </div>
+        </section>
+
+        <section id="gastronomia" class="section animate-fadeIn">
+            <h2 data-translate="gastronomy-title">Gastronomía</h2>
+            <p data-translate="gastronomy-intro">Grocio Prado es un paraíso gastronómico, ofreciendo una mezcla única de sabores tradicionales peruanos con un toque especial de la región. Explora los platos más emblemáticos:</p>
+            
+            <select id="platos-selector" onchange="mostrarPlato()">
+                <option value="" data-translate="dishes-select">Selecciona un plato típico</option>
+                <option value="carapulcra">Carapulcra</option>
+                <option value="sopa-seca">Sopa Seca</option>
+                <option value="chicharron">Chicharrón de Chancho</option>
+                <option value="pisco-sour">Pisco Sour</option>
+            </select>
+        
+            <div id="carapulcra" class="plato-info">
+                <h3>Carapulcra</h3>
+                <img src="cara.jpeg" alt="Carapulcra" class="zoomable">
+                <p>La Carapulcra es un guiso tradicional de Perú, lleno de sabores intensos. Este plato combina papas, carne de cerdo y pollo en una salsa de ají panca y maní molido, logrando una textura cremosa y un sabor profundo.</p>
+                <div class="recipe">
+                    <h4>Receta de Carapulcra:</h4>
+                    <ol>
+                        <li>Calienta una mezcla de aceite y manteca en una olla y añade ajos hasta dorar.</li>
+                        <li>Incorpora el ají panca y el maní tostado, mezclando bien.</li>
+                        <li>Añade el caldo de pollo y papas frescas, y cocina a fuego lento hasta que las papas estén tiernas.</li>
+                        <li>Sazona al gusto y sirve caliente, acompañada de arroz o sopa seca.</li>
+                    </ol>
+                </div>
+            </div>
+        
+            <div id="sopa-seca" class="plato-info">
+                <h3>Sopa Seca</h3>
+                <img src="sopa.jpg" alt="Sopa Seca" class="zoomable">
+                <p>Este plato de fideos secos con ají panca, cebolla, ajo y hierbas es una verdadera especialidad de la región. Aunque el nombre indica "sopa", es una mezcla seca, aromática y llena de sabor.</p>
+                <div class="recipe">
+                    <h4>Receta de Sopa Seca:</h4>
+                    <ol>
+                        <li>Prepara un aderezo con ají panca, cebolla, ajo y hierbas.</li>
+                        <li>Tosta los fideos largos y luego mézclalos con el aderezo.</li>
+                        <li>Agrega caldo y cocina a fuego bajo hasta que los fideos absorban el líquido.</li>
+                        <li>Incorpora trozos de carne y sirve acompañado de salsa criolla.</li>
+                    </ol>
+                </div>
+            </div>
+        
+            <div id="chicharron" class="plato-info">
+                <h3>Chicharrón de Chancho</h3>
+                <img src="chicharron2.jpg" alt="Chicharrón de Chancho" class="zoomable">
+                <p>El Chicharrón de Chancho es una delicia crujiente de la región, con carne de cerdo frita hasta dorar y servir con acompañamientos como camote frito y salsa criolla.</p>
+                <div class="recipe">
+                    <h4>Receta de Chicharrón de Chancho:</h4>
+                    <ol>
+                        <li>Corta la carne en trozos, sazónala y cocina en agua hasta ablandar.</li>
+                        <li>Escurre la carne y fríela en aceite caliente hasta que esté dorada y crujiente.</li>
+                        <li>Sirve con camote frito, maíz cancha y salsa criolla para una experiencia completa.</li>
+                    </ol>
+                </div>
+            </div>
+        
+            <div id="pisco-sour" class="plato-info">
+                <h3>Pisco Sour</h3>
+                <img src="pis.jpeg" alt="Pisco Sour" class="zoomable">
+                <p>El Pisco Sour, bebida nacional, es preparado con pisco, jugo de limón, jarabe de goma y clara de huevo. Refrescante y perfecto para acompañar cualquier plato de la región.</p>
+                <div class="recipe">
+                    <h4>Receta de Pisco Sour:</h4>
+                    <ol>
+                        <li>Agrega pisco, jugo de limón, jarabe de goma, clara de huevo y hielo en una coctelera.</li>
+                        <li>Agita enérgicamente y cuela en una copa fría.</li>
+                        <li>Decora con amargo de Angostura.</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+        
+
+        <section id="hoteles" class="section animate-fadeIn">
+            <h2 data-translate="hotels-title">Dónde Alojarse</h2>
+            <p data-translate="hotels-intro">
+                Grocio Prado ofrece diversas opciones de alojamiento para todos los gustos y presupuestos. Aquí te presentamos algunos de los mejores lugares para hospedarte, donde encontrarás comodidad, hospitalidad y una experiencia local auténtica:
+            </p>
+        
+            <div class="hotel">
+                <h3>Hospedaje Cielo Azul</h3>
+                <img src="azul.jpeg" alt="Hospedaje Cielo Azul">
+                <p>
+                    Ubicado en el corazón de Grocio Prado, el Hospedaje Cielo Azul se destaca por ofrecer habitaciones cómodas y limpias a precios accesibles. Su ambiente familiar y atención personalizada crean una atmósfera acogedora, ideal para quienes buscan una experiencia auténtica y relajante.
+                </p>
+                <ul>
+                    <li>Habitaciones individuales y dobles</li>
+                    <li>Wifi gratuito en todas las áreas</li>
+                    <li>Desayuno continental incluido con productos locales</li>
+                    <li>Terraza con vista a la ciudad, perfecta para relajarse</li>
+                </ul>
+            </div>
+        
+            <div class="hotel">
+                <h3>Thiago Hospedaje</h3>
+                <img src="thiago.jpeg" alt="Thiago Hospedaje">
+                <p>
+                    Conocido por su excelente relación calidad-precio, Thiago Hospedaje es ideal para viajeros de negocios y familias. Ofrece habitaciones modernas y bien equipadas, además de un restaurante que sirve platos locales e internacionales.
+                </p>
+                <ul>
+                    <li>Habitaciones con aire acondicionado y minibar</li>
+                    <li>Televisión por cable y servicio de streaming</li>
+                    <li>Restaurante con servicio a la habitación</li>
+                    <li>Servicio de lavandería disponible</li>
+                </ul>
+            </div>
+        
+            <div class="hotel">
+                <h3>Hospedaje Faraón</h3>
+                <img src="faraon.jpeg" alt="Hospedaje Faraón">
+                <p>
+                    Este pintoresco hospedaje ofrece una experiencia única con su decoración inspirada en el antiguo Egipto. Perfecto para quienes buscan algo fuera de lo común, el Hospedaje Faraón ofrece un ambiente exótico y divertido para toda la familia.
+                </p>
+                <ul>
+                    <li>Habitaciones temáticas para una experiencia única</li>
+                    <li>Piscina al aire libre con zona de descanso</li>
+                    <li>Bar y lounge para relajarse al final del día</li>
+                    <li>Excursiones guiadas para conocer la región</li>
+                </ul>
+            </div>
+        
+            <div class="hotel">
+                <h3>Hotel Colpal</h3>
+                <img src="colpa.jpeg" alt="Hotel Colpal">
+                <p>
+                    El Hotel Colpal es la opción de lujo en Grocio Prado. Con instalaciones de primera clase y un servicio excepcional, es ideal para quienes buscan una estadía más exclusiva, combinando confort, privacidad y atención de alta calidad.
+                </p>
+                <ul>
+                    <li>Suites espaciosas con vistas panorámicas</li>
+                    <li>Spa y centro de bienestar con masajes y tratamientos</li>
+                    <li>Restaurante gourmet con chefs locales e internacionales</li>
+                    <li>Salones para eventos y conferencias con capacidad para 200 personas</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="info-practica" class="section animate-fadeIn">
+            <h2 data-translate="practical-info-title">Información Práctica</h2>
+        
+            <h3 data-translate="how-to-get-there">Cómo Llegar</h3>
+            <p data-translate="how-to-get-there-text">
+                Grocio Prado se encuentra aproximadamente a 200 km al sur de Lima. Puedes llegar en autobús desde la terminal terrestre de Lima (un viaje de aproximadamente 3-4 horas). Para una experiencia más cómoda y flexible, puedes alquilar un coche y conducir por la Panamericana Sur, disfrutando de paisajes costeros en el camino. También hay servicios de taxis y transportes privados desde Chincha.
+            </p>
+        
+            <h3 data-translate="best-time-to-visit">Mejor Época para Visitar</h3>
+            <p data-translate="best-time-to-visit-text">
+                El clima en Grocio Prado es cálido y seco durante todo el año, con una temperatura promedio que varía entre 20°C y 30°C. Los meses ideales para visitar son de diciembre a abril, cuando el clima es perfecto para explorar las atracciones locales y disfrutar de las playas cercanas. Durante este tiempo, la comunidad organiza festivales y celebraciones culturales que enriquecen la experiencia turística.
+            </p>
+        
+            <h3 data-translate="local-transport">Transporte Local</h3>
+            <p data-translate="local-transport-text">
+                Dentro de Grocio Prado, puedes moverte fácilmente a pie o en mototaxi, el medio de transporte más común en el distrito. Para explorar atracciones en las afueras o en zonas rurales, puedes alquilar un coche o unirte a un tour organizado, que ofrece la ventaja de guías locales con conocimiento de la cultura y la historia del lugar.
+            </p>
+        
+            <!-- Galería de imágenes con efecto de zoom -->
+            <div class="image-gallery">
+                <img src="serv.jpeg" alt="Servicios turísticos en Grocio Prado">
+                <img src="mel.jpeg" alt="Vista de la plaza de Grocio Prado">
+                <img src="thi.jpeg" alt="Transporte local en Grocio Prado">
+                <img src="ha.jpg" alt="Paisajes en los alrededores de Grocio Prado">
+            </div>
+        </section>
+        
+    </div>
+
+    <script>
+        function changeLanguage(lang) {
+            // Implementar cambio de idioma
+        }
+
+        function mostrarLugar() {
+            const selector = document.getElementById('lugares-selector');
+            const lugares = document.getElementsByClassName('lugar-info');
+            
+            for (let lugar of lugares) {
+                lugar.classList.remove('active');
+            }
+            
+            if (selector.value) {
+                document.getElementById(selector.value).classList.add('active');
+            }
+        }
+
+        function mostrarPlato() {
+            const selector = document.getElementById('platos-selector');
+            const platos = document.getElementsByClassName('plato-info');
+            
+            for (let plato of platos) {
+                plato.classList.remove('active');
+            }
+            
+            if (selector.value) {
+                document.getElementById(selector.value).classList.add('active');
+            }
+        }
+
+        // Aquí se podría agregar código para inicializar el mapa
+    </script>
+    <script>
+        function changeLanguage(lang) {
+            document.documentElement.lang = lang;
+            const elements = document.querySelectorAll('[data-translate]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-translate');
+                element.textContent = translations[lang][key] || element.textContent;
+            });
+        }
+    </script>
+    <script>
+        const translations = {
+            es: {
+                "title": "Descubre Grocio Prado",
+                "subtitle": "La joya escondida de Chincha: Un tesoro de historia, cultura y sabores",
+                "cta-button": "Planea tu visita",
+                "nav-description": "Descripción",
+                "nav-history": "Historia",
+                "nav-places": "Lugares",
+                "nav-gastronomy": "Gastronomía",
+                "nav-activities": "Actividades",
+                "nav-events": "Eventos",
+                "nav-economy": "Economía",
+                "nav-hotels": "Hoteles",
+                "nav-info": "Info Práctica",
+                "description-title": "Bienvenidos a Grocio Prado",
+                "description-text": "Grocio Prado es un encantador distrito ubicado en la provincia de Chincha, departamento de Ica, Perú. Conocido por su rica historia, tradiciones culturales y la calidez de su gente, Grocio Prado ofrece una experiencia única para los visitantes que buscan descubrir la autenticidad del Perú central.",
+                "description-text2": "Con una población de aproximadamente 25,000 habitantes, este distrito combina la tranquilidad de la vida rural con la energía de una comunidad en crecimiento. Sus calles empedradas, plazas coloniales y la imponente presencia de la cordillera de los Andes en el horizonte crean un escenario pintoresco que cautiva a todos los que lo visitan.",
+                "fun-fact": "¿Sabías que Grocio Prado es conocido como la \"Tierra de la Beata Melchorita\", una figura religiosa muy venerada en la región?",
+                "history-title": "Historia",
+                "places-title": "Lugares Turísticos Imperdibles",
+                "places-select": "Selecciona un lugar turístico",
+                "gastronomy-title": "Gastronomía",
+                "gastronomy-intro": "Grocio Prado es un paraíso para los amantes de la comida, ofreciendo una mezcla única de sabores tradicionales peruanos con un toque local. Descubre algunos de los platos más emblemáticos de la región:",
+                "dishes-select": "Selecciona un plato típico",
+                "hotels-title": "Dónde Alojarse",
+                "hotels-intro": "Grocio Prado ofrece diversas opciones de alojamiento para todos los gustos y presupuestos. Aquí te presentamos algunos de los mejores lugares para hospedarte:",
+                "practical-info-title": "Información Práctica",
+                "how-to-get-there": "Cómo Llegar",
+                "how-to-get-there-text": "Grocio Prado se encuentra a aproximadamente 200 km al sur de Lima. Puedes llegar en autobús desde la terminal terrestre de Lima (viaje de 3-4 horas) o alquilar un coche y conducir por la Panamericana Sur.",
+                "best-time-to-visit": "Mejor Época para Visitar",
+                "best-time-to-visit-text": "El clima en Grocio Prado es cálido y seco durante todo el año. Sin embargo, los meses de diciembre a abril son ideales para disfrutar de las playas cercanas.",
+                "local-transport": "Transporte Local",
+                "local-transport-text": "Dentro de Grocio Prado, puedes moverte fácilmente a pie o en mototaxi. Para visitar atracciones cercanas, considera alquilar un coche o unirte a un tour organizado."
+            },
+            en: {
+                "title": "Discover Grocio Prado",
+                "subtitle": "The hidden gem of Chincha: A treasure of history, culture, and flavors",
+                "cta-button": "Plan your visit",
+                "nav-description": "Description",
+                "nav-history": "History",
+                "nav-places": "Places",
+                "nav-gastronomy": "Gastronomy",
+                "nav-activities": "Activities",
+                "nav-events": "Events",
+                "nav-economy": "Economy",
+                "nav-hotels": "Hotels",
+                "nav-info": "Practical Info",
+                "description-title": "Welcome to Grocio Prado",
+                "description-text": "Grocio Prado is a charming district located in the province of Chincha, department of Ica, Peru. Known for its rich history, cultural traditions, and the warmth of its people, Grocio Prado offers a unique experience for visitors seeking to discover the authenticity of central Peru.",
+                "description-text2": "With a population of approximately 25,000 inhabitants, this district combines the tranquility of rural life with the energy of a growing community. Its cobblestone streets, colonial squares, and the imposing presence of the Andes mountains on the horizon create a picturesque setting that captivates all who visit.",
+                "fun-fact": "Did you know that Grocio Prado is known as the \"Land of Beata Melchorita\", a highly venerated religious figure in the region?",
+                "history-title": "History",
+                "places-title": "Must-See Tourist Attractions",
+                "places-select": "Select a tourist attraction",
+                "gastronomy-title": "Gastronomy",
+                "gastronomy-intro": "Grocio Prado is a paradise for food lovers, offering a unique blend of traditional Peruvian flavors with a local touch. Discover some of the most emblematic dishes of the region:",
+                "dishes-select": "Select a typical dish",
+                "hotels-title": "Where to Stay",
+                "hotels-intro": "Grocio Prado offers various accommodation options for all tastes and budgets. Here are some of the best places to stay:",
+                "practical-info-title": "Practical Information",
+                "how-to-get-there": "How to Get There",
+                "how-to-get-there-text": "Grocio Prado is located approximately 200 km south of Lima. You can arrive by bus from Lima's bus terminal (3-4 hour trip) or rent a car and drive along the Panamericana Sur highway.",
+                "best-time-to-visit": "Best Time to Visit",
+                "best-time-to-visit-text": "The climate in Grocio Prado is warm and dry throughout the year. However, the months from December to April are ideal for enjoying the nearby beaches.",
+                "local-transport": "Local Transport",
+                "local-transport-text": "Within Grocio Prado, you can easily move around on foot or by mototaxi. To visit nearby attractions, consider renting a car or joining an organized tour."
+            }
+        };
+        
+        // Llamar a changeLanguage con el idioma inicial
+        changeLanguage('es');
+    </script>
+    <script>
+            // Crear el contenedor de la superposición
+const zoomOverlay = document.createElement("div");
+zoomOverlay.classList.add("zoom-overlay");
+document.body.appendChild(zoomOverlay);
+
+// Cerrar la superposición al hacer clic en ella
+zoomOverlay.addEventListener("click", () => {
+    zoomOverlay.classList.remove("show");
+    zoomOverlay.innerHTML = ""; // Vaciar el contenido
+});
+
+// Añadir el evento a todas las imágenes con la clase "zoomable"
+document.querySelectorAll(".zoomable").forEach((img) => {
+    img.addEventListener("click", () => {
+        const zoomedImg = document.createElement("img");
+        zoomedImg.src = img.src;
+        zoomOverlay.appendChild(zoomedImg);
+        zoomOverlay.classList.add("show");
+    });
+});
+
+    </script>
+</body>
+</html>
